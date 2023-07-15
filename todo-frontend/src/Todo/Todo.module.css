@@ -1,0 +1,91 @@
+.container {
+    position: relative;
+    background-color: var(--background-blue);
+    height: 100vh;
+    width: 100%;
+    overflow: scroll;
+}
+
+.logout {
+    background-color: var(--background-blue);
+    color: var(--white);
+
+    border: solid 1px var(--main-blue);
+    border-radius: 10px;
+
+    width: 90px;
+    height: 35px;
+
+    transition: border 0.3s;
+
+    cursor: pointer;
+}
+
+.logout:hover {
+    background-color: var(--background-blue);
+    border: solid 1px var(--gray-blue);
+}
+
+.logoutContainer {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    height: 45px;
+    padding-inline: 10px;
+}
+
+.middleContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.todoContainer {
+    display: flex;
+    flex-direction: column;
+
+    border-radius: 10px;
+
+    overflow: hidden;
+}
+
+.titleContainer {
+    display: flex;
+    justify-content: center;
+}
+
+.titleHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 40vw;
+}
+
+.title {
+    color: var(--white);
+    text-transform: uppercase;
+}
+
+.createContainer {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.paginationContainer {
+    display: flex;
+    justify-content: center;
+}
+
+.paginationButtons {
+    display: flex;
+    justify-content: space-between;
+    width: 42vw;
+    margin: 10px;
+}
+
+.dab {
+    background-color: red;
+    border: solid 1px black;
+    height: 50px;
+}

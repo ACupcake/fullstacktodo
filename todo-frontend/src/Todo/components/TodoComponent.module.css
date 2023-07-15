@@ -1,0 +1,41 @@
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 10px;
+    padding-inline: 20px;
+    background-color: var(--secondary-blue);
+    color: var(--grey);
+
+    font-size: small;
+
+    height: 3.5vh;
+    width: 40vw;
+    max-width: 800px;
+    transition: background-color 0.5s;
+}
+
+.container:hover {
+    background-color: var(--white-blue);
+}
+
+.container:not(:last-child) {
+    border-bottom: solid var(--white-blue) 2px;
+}
+
+.titleContainer {
+    display: flex;
+}
+
+.checkbox {
+    margin-right: 10px;
+}
+
+.leftContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    width: 80px;
+}

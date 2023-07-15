@@ -1,0 +1,18 @@
+:root {
+    --main-blue: #2c2f46;
+    --dark-blue: #1b1f31;
+    --dark-blue-2: #0e1324;
+    --white-blue: #2e3247;
+
+    --gray-blue: #8b92b1;
+    --secondary-blue: #24273d;
+    --background-blue: #171723;
+
+
+    --white: white;
+    --red: rgb(190, 0, 0);
+    --grey: grey;
+    --grey-180: rgb(180, 180, 180);
+
+    --size50: 50px
+}

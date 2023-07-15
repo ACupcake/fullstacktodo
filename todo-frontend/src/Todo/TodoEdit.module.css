@@ -1,0 +1,109 @@
+.container {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    min-height: 100%;
+    background-color: rgba(0, 0, 0, 0.601);
+
+}
+
+.popupContainer {
+    background-color: var(--secondary-blue);
+
+    width: 50vw;
+    max-width: 650px;
+
+    height: 50vh;
+    max-height: 350px;
+
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.mainContent {
+    display: flex;
+    justify-content: space-between;
+
+    width: 100%;
+    margin-block: 15px;
+}
+
+.description {
+    height: 50px;
+}
+
+.editInfo {
+    color: var(--white);
+    margin-inline: 10px;
+}
+
+.textInfo {
+    color: var(--white);
+    margin: 0;
+}
+
+.forms {
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+}
+
+.editData {
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+}
+
+.userData {
+    margin-bottom: 10px;
+}
+
+p {
+    margin-top: 0;
+}
+
+.done {
+    display: flex;
+    width: 60px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.exitContainer {
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+}
+
+.exit {
+    height: 30px;
+    width: 30px;
+
+    background-color: var(--main-blue);
+    color: var(--white);
+
+    border: solid 1px var(--white);
+    border-radius: 10px;
+
+    transition: border 0.2s;
+
+}
+
+.exit:hover {
+    border: solid 1px var(--grey-180);
+    color: var(--grey-180);
+    cursor: pointer;
+}
+
+.priority {
+    padding-block: 10px;
+}
+
+.footerContainer {
+    display: flex;
+    justify-content: space-between;
+    width: 150px;
+}

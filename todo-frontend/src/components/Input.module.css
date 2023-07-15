@@ -1,0 +1,23 @@
+.input {
+    background-color: var(--dark-blue);
+    border: 0;
+    color: var(--white);
+    border-radius: 5px;
+    padding: 5px;
+    padding-inline: 10px;
+
+    height: 3.5vh;
+    width: 90%;
+    max-width: 250px;
+
+    transition: background-color 0.3s;
+}
+
+.input:focus {
+    outline: none;
+    background-color: var(--dark-blue-2);
+}
+
+.input:hover {
+    background-color: var(--dark-blue-2);
+}

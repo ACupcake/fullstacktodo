@@ -1,0 +1,17 @@
+.container {
+    height: 30px;
+    width: 50px;
+
+    background-color: var(--main-blue);
+    color: var(--white);
+
+    border: solid 1px var(--white);
+    border-radius: 10px;
+
+    transition: border 0.3s;
+}
+
+.container:hover {
+    border: solid 1px var(--gray-blue);
+    cursor: pointer;
+}
