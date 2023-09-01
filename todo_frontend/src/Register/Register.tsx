@@ -12,12 +12,12 @@ type errorList = {
 }
 
 function Register() {
-  const [errorMsg, setErrorMsg] = useState<errorList>({
+  const [errorMessage, setErrorMessage] = useState<errorList>({
     username: [],
     password: [],
     email: [],
-  })
-  const [successMsg, setSuccessMsg] = useState<string | null>("")
+  });
+  const [successMessage, setSuccessMessage] = useState<string>("");
 
   const handleSubmit = async (e: any) => {
     e.preventDefault()
@@ -29,9 +29,9 @@ function Register() {
       '/register/',
       { username, password, email },
     ).then(e => {
-      setSuccessMsg("User created successfully!")
+      setSuccessMessage("User created successfully!")
     }).catch(e => {
-      setErrorMsg(e.response.data)
+      setErrorMessage(e.response.data)
     })
   }
 
@@ -46,24 +46,24 @@ function Register() {
           <div className={styles.inputContainer}>
             {/* TODO: add email validation together with others
               (clicking on register and not notifing email) */}
-            <Input id="email" type="email" placeholder="Email" wrong={errorMsg.email?.length > 0} />
-            <div className={styles.errorMsg}>{errorMsg.email}</div>
+            <Input id="email" type="email" placeholder="Email" wrong={errorMessage.email?.length > 0} />
+            <div className={styles.errorMessage}>{errorMessage.email}</div>
           </div>
 
           <div className={styles.inputContainer}>
-            <Input id="username" type="text" placeholder="Username" wrong={errorMsg.username?.length > 0} />
-            <div className={styles.errorMsg}>{errorMsg.username}</div>
+            <Input id="username" type="text" placeholder="Username" wrong={errorMessage.username?.length > 0} />
+            <div className={styles.errorMessage}>{errorMessage.username}</div>
           </div>
 
           <div className={styles.inputContainer}>
-            <Input id="password" type="password" placeholder='Password' wrong={errorMsg.password?.length > 0} />
-            <div className={styles.errorMsg}>{errorMsg.password}</div>
+            <Input id="password" type="password" placeholder='Password' wrong={errorMessage.password?.length > 0} />
+            <div className={styles.errorMessage}>{errorMessage.password}</div>
           </div>
 
           <div className={styles.inputContainer}>
             {/* TODO: add password confirmation */}
-            <Input id="password_confirmation" type="password" placeholder='Confirm Password' wrong={errorMsg.password?.length > 0} />
-            <div className={styles.errorMsg}>{errorMsg.password}</div>
+            <Input id="password_confirmation" type="password" placeholder='Confirm Password' wrong={errorMessage.password?.length > 0} />
+            <div className={styles.errorMessage}>{errorMessage.password}</div>
           </div>
 
           <Button>Register</Button>
@@ -73,7 +73,7 @@ function Register() {
           Click here to login
         </a>
         {/* TODO: add css to success msg */}
-        <div>{successMsg}</div>
+        <div className={styles.successMessage}>{successMessage}</div>
       </div>
     </div>
   );

@@ -8,11 +8,11 @@
     --secondary-blue: #24273d;
     --background-blue: #171723;
 
-
     --white: white;
-    --red: rgb(190, 0, 0);
     --grey: grey;
     --grey-180: rgb(180, 180, 180);
+
+    --red: rgb(190, 0, 0);
 
     --size50: 50px
 }

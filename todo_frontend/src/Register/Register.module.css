@@ -34,7 +34,7 @@
     padding-bottom: 20px;
 }
 
-.errorMsg {
+.errorMessage {
     color: var(--red);
     margin: 0;
     padding-top: 10px;
@@ -48,4 +48,8 @@
 
 .login:hover {
     color: var(--gray-blue);
+}
+
+.successMessage {
+    color: var(--white);
 }
