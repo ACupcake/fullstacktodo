@@ -1,7 +1,7 @@
 # Full stack Todo List
 
-![Login print](https://raw.githubusercontent.com/ACupcake/fullstacktodo/main/todo-frontend/static/images/login.png)
-![Home print](https://raw.githubusercontent.com/ACupcake/fullstacktodo/main/todo-frontend/static/images/home.png)
+![Login print](https://raw.githubusercontent.com/nasserso/fullstacktodo/main/todo-frontend/static/images/login.png)
+![Home print](https://raw.githubusercontent.com/nasserso/fullstacktodo/main/todo-frontend/static/images/home.png)
 
 
 # Starting the project
