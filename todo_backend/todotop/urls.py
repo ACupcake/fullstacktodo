@@ -16,12 +16,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path, re_path
 from django.urls import include, path
-from todo.views import FrontendRenderView
 
 urlpatterns = [
     path("api/v1/", include("todotop.routers"), name="v1"),
     path("admin/", admin.site.urls),
     path("__debug__/", include("debug_toolbar.urls")),
 ]
-
-urlpatterns += [re_path(r"(?P<path>.*)", FrontendRenderView.as_view(), name="react")]

@@ -11,12 +11,6 @@ from todo.models import Todo
 from todo.permissions import isOwner
 from todo.serializers import TodoSerializer
 
-
-class FrontendRenderView(View):
-    def get(self, request, *args, **kwargs):
-        return render(request, "todo-frontend/src/App.tsx", {})
-
-
 class TodoViewSet(viewsets.ModelViewSet):
     queryset = Todo.objects.all()
     serializer_class = TodoSerializer
