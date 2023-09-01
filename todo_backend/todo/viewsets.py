@@ -19,13 +19,6 @@ class TodoViewSet(viewsets.ModelViewSet):
     ]
     filterset_fields = ("done", "id")
 
-    def get_max_order_id(self, user):
-        user_todos = Todo.objects.filter(created_by=user)
-        max_order = user_todos.aggregate(Max("order"))["order__max"]
-        if not max_order:
-            return 0
-        return max_order
-
     def get_queryset(self):
         queryset = super().get_queryset()
         return queryset.filter(created_by=self.request.user)
@@ -33,7 +26,6 @@ class TodoViewSet(viewsets.ModelViewSet):
     def create(self, request, *args, **kwargs):
         request.data["created_by"] = request.user.id
         request.data["modified_by"] = request.user.id
-        request.data["order"] = self.get_max_order_id(request.user) + 1
         return super().create(request, *args, **kwargs)
 
     def partial_update(self, request, *args, **kwargs):
