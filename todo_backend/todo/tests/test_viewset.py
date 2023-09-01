@@ -4,7 +4,7 @@ import pytest
 from todo.models import Todo
 from rest_framework.test import APIRequestFactory
 from rest_framework.test import force_authenticate
-from todo.views import TodoViewSet
+from todo_backend.todo.viewsets import TodoViewSet
 from rest_framework.test import APIClient
 
 # TODO: need to test modified_by, in update and partial_update

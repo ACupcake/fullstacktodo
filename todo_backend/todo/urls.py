@@ -1,11 +1,11 @@
-from django.urls import path, include
-from . import views
+from django.urls import path
+from . import viewsets
 from rest_framework import routers
 
 
 router = routers.DefaultRouter()
-router.register(r"", views.TodoViewSet)
+router.register(r"", viewsets.TodoViewSet)
 
 urlpatterns = router.urls
 
-urlpatterns += [path('order/', views.TodoViewSet.order)]
+urlpatterns += [path('order/', viewsets.TodoViewSet.order)]
