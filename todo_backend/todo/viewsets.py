@@ -1,15 +1,15 @@
 from rest_framework import viewsets
 import django_filters.rest_framework
-from django.db.models import Max
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework import status
 
 from todo.models import Todo
 from todo.permissions import isOwner
-from todo.serializers import TodoSerializer
+from todo.serializers import OrderSerializer, TodoSerializer
 from rest_framework.permissions import IsAuthenticated
 
+# TODO: paginate or limit todo list
 class TodoViewSet(viewsets.ModelViewSet):
     queryset = Todo.objects.all()
     serializer_class = TodoSerializer
@@ -36,29 +36,22 @@ class TodoViewSet(viewsets.ModelViewSet):
         request.data["modified_by"] = request.user.id
         return super().update(request, *args, **kwargs)
 
-    @action(methods=["post"], detail=False, permission_classes=[isOwner])
-    def orderOld(self, request, *args, **kwargs):
-        # TODO: write tests
-
-        for order in request.data["new_order"]:
-            todo = Todo.objects.get(id=request.data["new_order"][order])
-            if todo.created_by == request.user:
-                todo.order = order
-                todo.save()
-
-        return Response(status=status.HTTP_200_OK)
-
-    @action(methods=["post"], detail=False, permission_classes=[isOwner])
+    # TODO: write tests
+    @action(
+        methods=["post"],
+        detail=False,
+        permission_classes=[isOwner],
+        serializer_class=OrderSerializer,
+    )
     def order(self, request, *args, **kwargs):
-        # TODO: write tests
+        serializer = OrderSerializer(data=request.data)
+        serializer.is_valid()
 
-        id_list = request.data["new_order"]
         todo_qs = Todo.objects.filter(created_by=request.user.id)
-        todo_qs = todo_qs.filter(pk__in=id_list)
+        todo_qs = todo_qs.filter(pk__in=serializer.validated_data['new_order'])
 
         for todo in todo_qs:
-            todo.order = id_list.index(todo.id)
-
+            todo.order = serializer.validated_data['new_order'].index(todo.id)
         Todo.objects.bulk_update(todo_qs, ["order"])
 
         return Response(status=status.HTTP_200_OK)
