@@ -10,7 +10,7 @@
 
 In the project directory, enter in the backend directory:
 
-`cd todo-backend`
+`cd todo_backend`
 
 Start the environment (optional)
 
@@ -23,14 +23,19 @@ Install the packages
 
 `pip install -r requirements.txt`
 
+(Optional) Apply migrations if it is the first time runnning
+
+`python manage.py migrate`
+
 Run the server
+
 `python manage.py runserver`
 
 ## Frontend
 
 In the project directory, enter in the frontend directory:
 
-`cd todo-frontend`
+`cd todo_frontend`
 
 Install the packages
 
