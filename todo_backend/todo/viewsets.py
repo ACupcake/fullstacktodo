@@ -8,13 +8,12 @@ from rest_framework import status
 from todo.models import Todo
 from todo.permissions import isOwner
 from todo.serializers import TodoSerializer
+from rest_framework.permissions import IsAuthenticated
 
 class TodoViewSet(viewsets.ModelViewSet):
     queryset = Todo.objects.all()
     serializer_class = TodoSerializer
-    permission_classes = [
-        isOwner,
-    ]
+    permission_classes = [ isOwner, IsAuthenticated ]
     filter_backends = [
         django_filters.rest_framework.DjangoFilterBackend,
     ]
@@ -28,9 +27,7 @@ class TodoViewSet(viewsets.ModelViewSet):
         return max_order
 
     def get_queryset(self):
-        queryset = super(TodoViewSet, self).get_queryset()
-        if self.request.user.id == None:
-            return None
+        queryset = super().get_queryset()
         return queryset.filter(created_by=self.request.user)
 
     def create(self, request, *args, **kwargs):
