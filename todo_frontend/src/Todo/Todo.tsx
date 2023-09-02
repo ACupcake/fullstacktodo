@@ -74,10 +74,13 @@ function Todo({ logout }: todoParams) {
         const sorted_ids = [...sorted_items.map(item => item.id)]
 
         try {
+            // throw Error("ok")
             await api.sortTodos(sorted_ids)
-        } catch (e) {
+        } catch (e: any) {
+            // TODO: make hook to call message
+            // <Toast text={e.message} />
             // TODO: undo if fail
-            console.log(e);
+            console.log(e.message);
         }
     }
 
@@ -112,8 +115,6 @@ function Todo({ logout }: todoParams) {
             <div className={styles.createContainer}>
                 <CreateTodo updateTodo={getTodoList} />
             </div>
-
-            <Toast text={"hi"} />
 
             <DragDropContext onDragEnd={onDragEnd}>
                 <div className={styles.middleContainer}>
