@@ -1,11 +1,12 @@
 import styles from './Todo.module.css';
 import { useEffect, useState } from "react";
-import api from "../services/api";
 import TodoComponent from "./components/TodoComponent";
 import CreateTodo from './components/CreateTodo';
 import TodoEdit from './TodoEdit';
 import { todoType } from './types';
-import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd';
+import { DragDropContext, Droppable, DroppableProvided, DropResult } from 'react-beautiful-dnd';
+import * as api from "./api"
+import Toast from '../components/Toast';
 
 type todoParams = {
     logout: () => void;
@@ -22,35 +23,36 @@ function Todo({ logout }: todoParams) {
         return Math.floor(Math.random() * max);
     }
 
+    // TODO: api file 
     const getTodoList = async (link?: string | null) => {
-        setTodoList([])
         try {
-            const res = await api.get(link || "/todo/")
+            const res = (await api.getTodoList(link || "/todo/")) as any
             const sorted_data = res.data.sort((item1: todoType, item2: todoType) => item1.order < item2.order ? -1 : 1)
             setTodoList(sorted_data)
-        }
-        catch (e) {
+        } catch (e) {
             console.log(e)
         }
     }
 
     const updateDone = async (todoId: number, done: boolean, index: number) => {
-        await api.patch(`/todo/${todoId}/`, { done: !done })
-            .then((res) => {
-                setTodoList((todoList) => {
-                    todoList[index].done = !done;
-                    return todoList;
-                })
+        try {
+            await api.updateDone(todoId, done, index)
+            setTodoList((todoList) => {
+                todoList[index].done = !done;
+                return todoList;
             })
-            .catch(e => console.log(e))
+        } catch (e) {
+            console.log(e);
+        }
     }
 
     const deleteTodo = async (todoId: number) => {
-        await api.delete(`/todo/${todoId}/`)
-            .then((res) => {
-                getTodoList()
-            })
-            .catch(e => console.log(e))
+        try {
+            await api.deleteTodo(todoId)
+            await getTodoList()
+        } catch (e) {
+            console.log(e);
+        }
     }
 
     const openModal = (todo: todoType) => {
@@ -58,7 +60,7 @@ function Todo({ logout }: todoParams) {
         setIsModalOpen(true);
     }
 
-    const onDragEnd = (result: DropResult) => {
+    const onDragEnd = async (result: DropResult) => {
         if (!result.destination) return;
 
         const items = Array.from(todoList);
@@ -71,8 +73,12 @@ function Todo({ logout }: todoParams) {
 
         const sorted_ids = [...sorted_items.map(item => item.id)]
 
-        api.post("/todo/order/", { new_order: sorted_ids })
-            .catch(e => console.log(e))
+        try {
+            await api.sortTodos(sorted_ids)
+        } catch (e) {
+            // TODO: undo if fail
+            console.log(e);
+        }
     }
 
     useEffect(() => {
@@ -81,7 +87,7 @@ function Todo({ logout }: todoParams) {
 
     return (
         <div className={styles.container}>
-            {/* TODO: fix shadow not in hole screen */}
+            {/* TODO: fix shadow not in the entire screen */}
             {isModalOpen ?
                 <TodoEdit
                     todo={modalData}
@@ -107,10 +113,12 @@ function Todo({ logout }: todoParams) {
                 <CreateTodo updateTodo={getTodoList} />
             </div>
 
+            <Toast text={"hi"} />
+
             <DragDropContext onDragEnd={onDragEnd}>
                 <div className={styles.middleContainer}>
                     <Droppable droppableId={`column-${getRandomInt(10)}`}>
-                        {(provided) => (
+                        {(provided: DroppableProvided) => (
                             <div className={styles.todoContainer} ref={provided.innerRef} {...provided.droppableProps}>
                                 {todoList.map((todo: todoType, index: number) => {
                                     return (

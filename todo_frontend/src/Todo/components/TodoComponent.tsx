@@ -18,13 +18,12 @@ function TodoComponent({ title, priority, checked, updateDone, deleteTodo, onCli
     const [check, setCheck] = useState(checked)
 
     const checkInput = async () => {
-        updateDone()
-            .then((e: any) => {
-                setCheck(e => !e);
-            })
-            .catch((e: any) => {
-                console.log(e)
-            })
+        try {
+            await updateDone();
+            setCheck((check) => !check);
+        } catch (e) {
+            console.log(e);
+        }
     }
 
     const handleContainerClick = (e: any) => {
