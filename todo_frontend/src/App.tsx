@@ -8,6 +8,7 @@ import ErrorPage from "./ErrorPage/ErrorPage";
 import Register from "./Register/Register";
 import useToken from "./hooks/useToken"
 import Todo from "./Todo/Todo";
+import { ToastContextProvider } from "./components/notification/notification";
 
 function App() {
   const { token, setToken } = useToken();
@@ -36,11 +37,16 @@ function App() {
     }
   ]);
 
-  if (!token) {
-    return (<RouterProvider router={routerAnonymous} />);
-  } else {
-    return (<RouterProvider router={routerLogged} />);
-  }
+  return (
+    <ToastContextProvider>
+      {!token ?
+        <RouterProvider router={routerAnonymous} />
+        :
+        <RouterProvider router={routerLogged} />
+      }
+    </ToastContextProvider>
+  )
+
 }
 
 export default App;

@@ -1,10 +1,6 @@
 import { useEffect, useState } from 'react';
 import styles from './Toast.module.css';
-
-interface IToast {
-    text: string;
-    error?: boolean;
-}
+import { IToast } from './types';
 
 function Toast({ text, error = false }: IToast) {
     const [visible, setVisible] = useState<boolean>(true);
@@ -39,7 +35,6 @@ function Toast({ text, error = false }: IToast) {
         };
     }, [])
 
-    // TODO: add stacking
     // TODO: add timer visualization
 
     return (

@@ -6,7 +6,7 @@ import TodoEdit from './TodoEdit';
 import { todoType } from './types';
 import { DragDropContext, Droppable, DroppableProvided, DropResult } from 'react-beautiful-dnd';
 import * as api from "./api"
-import Toast from '../components/Toast';
+import { useToastContext } from '../components/notification/notification';
 
 type todoParams = {
     logout: () => void;
@@ -17,6 +17,7 @@ function Todo({ logout }: todoParams) {
     const [todoList, setTodoList] = useState<todoType[]>([]);
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
     const [modalData, setModalData] = useState<todoType | null>(null);
+    const { addToast } = useToastContext()
 
     function getRandomInt(max: number): number {
         // TODO: this function should not be necessary for proper working of dnd
@@ -85,6 +86,9 @@ function Todo({ logout }: todoParams) {
     }
 
     useEffect(() => {
+        addToast("alo");
+        addToast("alo2");
+        console.log("ok")
         getTodoList();
     }, [])
 
