@@ -30,7 +30,7 @@ function Todo({ logout }: todoParams) {
             const res = (await api.getTodoList(link || "/todo/")) as any
             const sorted_data = res.data.sort((item1: todoType, item2: todoType) => item1.order < item2.order ? -1 : 1)
             setTodoList(sorted_data)
-        } catch (e: any) {
+        } catch (e) {
             addToast("Erro ao carregar lista.")
         }
     }
@@ -81,7 +81,7 @@ function Todo({ logout }: todoParams) {
 
         try {
             await api.sortTodos(items.map((item) => item.id))
-        } catch (e: any) {
+        } catch (e) {
             addToast("Erro ao reordenar lista.");
             setTodoList(itemsBackup);
         }

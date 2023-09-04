@@ -4,8 +4,8 @@ import styles from "./notification.module.css"
 
 export const ToastContext = createContext<any>(0);
 
-export const ToastContextProvider = ({ children }: any) => {
-    const [toasts, setToasts] = useState<any[]>([]);
+export const ToastContextProvider = ({ children }: { children: JSX.Element }) => {
+    const [toasts, setToasts] = useState<JSX.Element[]>([]);
 
     const addToast = (text: string) => {
         const newToast = <Toast text={text} key={Math.random()} />;

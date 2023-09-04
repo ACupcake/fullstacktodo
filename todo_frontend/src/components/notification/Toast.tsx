@@ -6,7 +6,7 @@ function Toast({ text, error = false, timer = 5000 }: IToast) {
     const [visible, setVisible] = useState<boolean>(true);
     const [timeoutID, setTimeoutID] = useState<NodeJS.Timeout>();
     const [counter, setCounter] = useState<number>(timer);
-    const [intervalID, setIntervalID] = useState<any>();
+    const [intervalID, setIntervalID] = useState<NodeJS.Timer>();
 
     const close = () => {
         stopTimer();
