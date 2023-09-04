@@ -30,8 +30,8 @@ function Todo({ logout }: todoParams) {
             const res = (await api.getTodoList(link || "/todo/")) as any
             const sorted_data = res.data.sort((item1: todoType, item2: todoType) => item1.order < item2.order ? -1 : 1)
             setTodoList(sorted_data)
-        } catch (e) {
-            console.log(e)
+        } catch (e: any) {
+            addToast("Erro ao carregar lista.")
         }
     }
 
@@ -43,7 +43,7 @@ function Todo({ logout }: todoParams) {
                 return todoList;
             })
         } catch (e) {
-            console.log(e);
+            addToast("Erro ao atualizar todo.")
         }
     }
 
@@ -52,7 +52,7 @@ function Todo({ logout }: todoParams) {
             await api.deleteTodo(todoId)
             await getTodoList()
         } catch (e) {
-            console.log(e);
+            addToast("Erro ao apagar todo.")
         }
     }
 
@@ -61,34 +61,33 @@ function Todo({ logout }: todoParams) {
         setIsModalOpen(true);
     }
 
-    const onDragEnd = async (result: DropResult) => {
-        if (!result.destination) return;
+    const moveItem = (arr: any[], from: number, to: number) => {
+        const [removedItem] = arr.splice(from, 1);
+        arr.splice(to, 0, removedItem);
 
-        const items = Array.from(todoList);
-        const [reorderedItem] = items.splice(result.source.index, 1);
-        items.splice(result.destination.index, 0, reorderedItem);
+        return arr;
+    }
 
+    const onDragEnd = async (drag: DropResult) => {
+        if (!drag.destination) return;
+
+        const itemsBackup = [...todoList];
+        const items = moveItem(
+            [...todoList],
+            drag.source.index,
+            drag.destination.index
+        );
         setTodoList(items);
 
-        const sorted_items = items.map((item, index) => { return { ...item, order: index } })
-
-        const sorted_ids = [...sorted_items.map(item => item.id)]
-
         try {
-            // throw Error("ok")
-            await api.sortTodos(sorted_ids)
+            await api.sortTodos(items.map((item) => item.id))
         } catch (e: any) {
-            // TODO: make hook to call message
-            // <Toast text={e.message} />
-            // TODO: undo if fail
-            console.log(e.message);
+            addToast("Erro ao reordenar lista.");
+            setTodoList(itemsBackup);
         }
     }
 
     useEffect(() => {
-        addToast("alo");
-        addToast("alo2");
-        console.log("ok")
         getTodoList();
     }, [])
 

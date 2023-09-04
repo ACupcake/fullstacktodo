@@ -1,3 +1,4 @@
+import { useToastContext } from '../../components/notification/notification';
 import api from '../../services/api';
 import Button from './Button';
 import styles from './CreateTodo.module.css';
@@ -7,16 +8,19 @@ type createTodoType = {
 }
 
 function CreateTodo({ updateTodo }: createTodoType) {
-    const addTodo = (e: any) => {
+    const { addToast } = useToastContext();
+
+    const addTodo = async (e: any) => {
         e.preventDefault();
         const todo = e.target['todo'].value;
 
-        api.post("/todo/", { title: todo })
-            .then((res) => {
-                updateTodo()
-                e.target['todo'].value = "";
-            })
-            .catch(e => console.log(e))
+        try {
+            await api.post("/todo/", { title: todo })
+            updateTodo()
+            e.target['todo'].value = "";
+        } catch (e) {
+            addToast("Erro ao editar todo.")
+        }
     }
 
     return (

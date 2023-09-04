@@ -3,6 +3,7 @@ import api from "../services/api";
 import Button from "./components/Button";
 import styles from "./TodoEdit.module.css";
 import { todoType } from "./types";
+import { useToastContext } from "../components/notification/notification";
 
 type todoEditType = {
     todo: todoType | null;
@@ -11,7 +12,9 @@ type todoEditType = {
 }
 
 function TodoEdit({ todo, updateList, closeModal }: todoEditType) {
-    const editTodo = (e: any) => {
+    const { addToast } = useToastContext();
+
+    const editTodo = async (e: any) => {
         e.preventDefault()
 
         if (!todo) {
@@ -26,11 +29,12 @@ function TodoEdit({ todo, updateList, closeModal }: todoEditType) {
         const done = checkInput === null || checkInput === undefined ? todo.done : checkInput;
         const priority = e.target['priority'].value || todo.priority;
 
-        api.patch(`/todo/${todo.id}/`, { ...todo, title, description, done: done, priority })
-            .then((res) => {
-                updateList();
-            })
-            .catch(e => console.log(e))
+        try {
+            await api.patch(`/todo/${todo.id}/`, { ...todo, title, description, done: done, priority })
+            updateList();
+        } catch (e) {
+            addToast("Erro ao editar todo.")
+        }
     }
 
     useEffect(() => {

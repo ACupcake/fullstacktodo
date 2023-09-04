@@ -8,13 +8,15 @@ export const ToastContextProvider = ({ children }: any) => {
     const [toasts, setToasts] = useState<any[]>([]);
 
     const addToast = (text: string) => {
-        setToasts((toasts) => [...toasts, <Toast text={text} key={Math.random()} />])
+        const newToast = <Toast text={text} key={Math.random()} />;
+        setToasts((toasts) => [...toasts, newToast]);
     }
 
     useEffect(() => {
-        console.log(toasts);
-
-    }, [toasts])
+        return () => {
+            setToasts([]);
+        }
+    }, [])
 
     const contextValue = {
         addToast,
